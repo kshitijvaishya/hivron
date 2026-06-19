@@ -16,19 +16,20 @@ export const Route = createFileRoute("/")({
 
 const NAV = [
   { label: "HOME", href: "#home" },
+  { label: "PROBLEM", href: "#problem" },
   { label: "PRODUCT", href: "#product" },
+  { label: "WAITLIST", href: "#waitlist" },
   { label: "WHY HIVERON", href: "#why" },
   { label: "THE FUEL", href: "#fuel" },
-  { label: "WAITLIST", href: "#waitlist" },
   { label: "CONTACT", href: "#contact" },
 ];
 
-function Logo({ dark = false }: { dark?: boolean }) {
+function Logo() {
   return (
     <a href="#home" className="flex items-center gap-2.5">
       <img src={logoImg} alt="Hiveron" className="h-9 w-9" width={36} height={36} />
       <span
-        className={`text-xl font-medium tracking-wide ${dark ? "text-ink" : "text-cream"}`}
+        className="text-xl font-medium tracking-wide text-cream"
         style={{ fontFamily: "var(--font-sans)" }}
       >
         hiveron
@@ -37,19 +38,17 @@ function Logo({ dark = false }: { dark?: boolean }) {
   );
 }
 
-function Nav({ dark = false }: { dark?: boolean }) {
+function Nav() {
   return (
-    <nav className="absolute top-0 left-0 right-0 z-50 px-6 md:px-12 py-6">
+    <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 bg-ink/60 backdrop-blur-md border-b border-cream/5">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
-        <Logo dark={dark} />
-        <ul className="hidden md:flex items-center gap-8 lg:gap-10">
+        <Logo />
+        <ul className="hidden md:flex items-center gap-6 lg:gap-8">
           {NAV.map((n) => (
             <li key={n.label}>
               <a
                 href={n.href}
-                className={`text-xs lg:text-sm font-semibold tracking-[0.15em] transition-colors ${
-                  dark ? "text-ink hover:text-honey" : "text-cream/90 hover:text-honey"
-                }`}
+                className="text-xs lg:text-sm font-semibold tracking-[0.15em] text-cream/90 hover:text-honey transition-colors"
               >
                 {n.label}
               </a>
@@ -64,12 +63,13 @@ function Nav({ dark = false }: { dark?: boolean }) {
 function HiveronHome() {
   return (
     <main className="bg-background text-foreground overflow-x-hidden">
+      <Nav />
       <Hero />
       <Problem />
       <Product />
+      <Waitlist />
       <Compare />
       <Formula />
-      <Waitlist />
       <Contact />
       <Footer />
     </main>
@@ -80,7 +80,6 @@ function HiveronHome() {
 function Hero() {
   return (
     <section id="home" className="relative min-h-screen bg-ink overflow-hidden">
-      <Nav />
       {/* Hero image right side */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 honeycomb-pattern opacity-40" />
@@ -117,18 +116,6 @@ function Hero() {
               LEARN MORE <ArrowRight className="h-4 w-4" />
             </a>
           </div>
-        </div>
-      </div>
-
-      {/* Bottom marquee */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 border-t border-honey/30 bg-ink/80 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 md:px-12 py-4 text-xs font-semibold tracking-[0.15em] text-cream">
-          <BarItem icon={<Zap className="h-4 w-4" />} text="NATURAL ENERGY" />
-          <BarItem icon={<Droplet className="h-4 w-4" />} text="ELECTROLYTES" />
-          <BarItem icon={<Zap className="h-4 w-4" />} text="50MG CAFFEINE" />
-          <BarItem icon={<Hexagon className="h-4 w-4" />} text="RAW HONEY SOURCE" />
-          <BarItem text="CLEAN. POWERFUL. OPTIMIZED." />
-          <BarItem text="TEAR. DRINK. PERFORM." />
         </div>
       </div>
     </section>
