@@ -80,7 +80,6 @@ function HiveronHome() {
 function Hero() {
   return (
     <section id="home" className="relative min-h-screen bg-ink overflow-hidden">
-      <Nav />
       {/* Hero image right side */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 honeycomb-pattern opacity-40" />
@@ -117,18 +116,6 @@ function Hero() {
               LEARN MORE <ArrowRight className="h-4 w-4" />
             </a>
           </div>
-        </div>
-      </div>
-
-      {/* Bottom marquee */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 border-t border-honey/30 bg-ink/80 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 md:px-12 py-4 text-xs font-semibold tracking-[0.15em] text-cream">
-          <BarItem icon={<Zap className="h-4 w-4" />} text="NATURAL ENERGY" />
-          <BarItem icon={<Droplet className="h-4 w-4" />} text="ELECTROLYTES" />
-          <BarItem icon={<Zap className="h-4 w-4" />} text="50MG CAFFEINE" />
-          <BarItem icon={<Hexagon className="h-4 w-4" />} text="RAW HONEY SOURCE" />
-          <BarItem text="CLEAN. POWERFUL. OPTIMIZED." />
-          <BarItem text="TEAR. DRINK. PERFORM." />
         </div>
       </div>
     </section>
