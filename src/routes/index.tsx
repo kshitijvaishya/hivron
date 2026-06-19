@@ -40,7 +40,7 @@ function Logo() {
 
 function Nav() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 bg-ink/60 backdrop-blur-md border-b border-cream/5">
+    <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 bg-ink/60 border-b border-cream/5">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <Logo />
         <ul className="hidden md:flex items-center gap-6 lg:gap-8">
@@ -231,7 +231,7 @@ const ROWS = [
 
 function Compare() {
   return (
-    <section id="why" className="bg-cream text-ink py-24 md:py-32">
+    <section id="why" className="bg-white text-ink py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6 md:px-12">
         <div className="grid gap-12 md:grid-cols-2 md:items-end">
           <div>
@@ -341,7 +341,7 @@ function HexBadge({ children }: { children?: React.ReactNode }) {
 /* ─────────────────────── FORMULA ─────────────────────── */
 function Formula() {
   return (
-    <section id="fuel" className="bg-cream text-ink">
+    <section id="fuel" className="bg-white text-ink">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 md:px-12 py-24 md:py-32 md:grid-cols-2">
         <div>
           <img
@@ -493,7 +493,7 @@ function Field({
 /* ─────────────────────── CONTACT ─────────────────────── */
 function Contact() {
   return (
-    <section id="contact" className="bg-cream text-ink py-24 md:py-32">
+    <section id="contact" className="bg-white text-ink py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl gap-16 px-6 md:px-12 lg:grid-cols-2">
         <div>
           <SectionLabel>LET'S TALK</SectionLabel>
