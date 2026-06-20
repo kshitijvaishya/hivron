@@ -4,11 +4,18 @@ import {
   Zap, Droplet, Hexagon, ArrowRight, Check, X, Minus, Tag, Rocket, Award, Gift,
   Mail, Phone, MapPin, User, Lock, Instagram, Youtube, Activity,
 } from "lucide-react";
-import heroImg from "@/assets/hero.jpg";
+import heroImg from "@/assets/hiveron-hero-img.png";
 import problemImg from "@/assets/problem.jpg";
-import formulaImg from "@/assets/formula.jpg";
-import waitlistImg from "@/assets/waitlist.jpg";
-import logoImg from "@/assets/logo.png";
+import formulaImg from "@/assets/hiveron-formula-img.png";
+import waitlistImg from "@/assets/hiveron-waitlist-img.png";
+import logoImg from "@/assets/logo/hiveron-logo.png";
+import productImg from "@/assets/hiveron-product-img.png";
+import energyDrinkImg from "@/assets/energy-drink.png";
+import otherGelsImg from "@/assets/other-gels.png";
+import hiveronCompareImg from "@/assets/hiveron-compare.png";
+import artificialIcon from "@/assets/icons/artifical_icon.png";
+import energyIcon from "@/assets/icons/energy_icon.png";
+import stomachIcon from "@/assets/icons/stomach_icon.png";
 
 export const Route = createFileRoute("/")({
   component: HiveronHome,
@@ -29,7 +36,7 @@ function Logo() {
     <a href="#home" className="flex items-center gap-2.5">
       <img src={logoImg} alt="Hiveron" className="h-9 w-9" width={36} height={36} />
       <span
-        className="text-xl font-medium tracking-wide text-cream"
+        className="text-xl font-medium tracking-wide text-honey"
         style={{ fontFamily: "var(--font-sans)" }}
       >
         hiveron
@@ -182,20 +189,7 @@ function Product() {
     <section id="product" className="relative bg-ink text-cream overflow-hidden">
       <div className="absolute inset-0 honeycomb-pattern opacity-30" />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 md:px-12 py-24 md:py-32 md:grid-cols-2">
-        <div className="relative">
-          <div
-            className="absolute -inset-10 rounded-full opacity-50 blur-3xl"
-            style={{ background: "radial-gradient(circle, var(--honey) 0%, transparent 60%)" }}
-          />
-          <img
-            src={heroImg}
-            alt="Hiveron product"
-            className="relative mx-auto max-h-[600px] w-auto object-contain drop-shadow-2xl"
-            loading="lazy"
-            width={1024}
-            height={1024}
-          />
-        </div>
+        {/* Text — left column */}
         <div>
           <SectionLabel>MEET HIVERON</SectionLabel>
           <h2 className="text-display mt-6 text-5xl md:text-6xl lg:text-7xl font-black">
@@ -212,6 +206,21 @@ function Product() {
               </li>
             ))}
           </ul>
+        </div>
+        {/* Image — right column */}
+        <div className="relative">
+          <div
+            className="absolute -inset-10 rounded-full opacity-50 blur-3xl"
+            style={{ background: "radial-gradient(circle, var(--honey) 0%, transparent 60%)" }}
+          />
+          <img
+            src={productImg}
+            alt="Hiveron honey fuel product"
+            className="relative mx-auto max-h-[600px] w-full object-cover rounded-xl drop-shadow-2xl"
+            loading="lazy"
+            width={1024}
+            height={1024}
+          />
         </div>
       </div>
     </section>
@@ -249,48 +258,84 @@ function Compare() {
           </div>
         </div>
 
-        <div className="mt-16 overflow-x-auto">
-          <table className="w-full min-w-[800px] border-separate border-spacing-0">
-            <thead>
-              <tr>
-                <th className="bg-cream text-left p-5 text-sm font-bold tracking-[0.15em] text-ink/60">
-                  WHAT MATTERS
-                </th>
-                <th className="bg-cream p-5 text-center text-sm font-bold tracking-[0.15em] text-ink/60">
-                  ENERGY DRINKS
-                </th>
-                <th className="bg-cream p-5 text-center text-sm font-bold tracking-[0.15em] text-ink/60">
-                  OTHER GELS
-                </th>
-                <th className="bg-ink p-5 text-center text-sm font-bold tracking-[0.15em] text-honey rounded-t-lg">
-                  HIVERON
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {ROWS.map(([label, a, b, c], i) => (
-                <tr key={label} className={i % 2 ? "bg-ink/[0.03]" : ""}>
-                  <td className="p-5 font-semibold text-ink">{label}</td>
-                  <td className="p-5 text-ink/70">
-                    <div className="flex items-center gap-3">
-                      <X className="h-5 w-5 text-ink/40 shrink-0" /> {a}
+        {/* Outer wrapper is relative so the Hiveron image can escape the overflow-x-auto container */}
+        <div className="relative mt-16">
+          {/* Hiveron image — absolutely positioned ABOVE the table, outside the overflow container */}
+          <div
+            className="absolute right-0 bottom-full z-20  rounded-t-lg flex flex-col items-center px-6 pt-5 pb-0"
+            style={{ width: "20%" }}
+          >
+            <img
+              src={hiveronCompareImg}
+              alt="Hiveron honey fuel gel"
+              className="w-full max-h-52 object-contain drop-shadow-2xl"
+            />
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[800px] border-separate border-spacing-0">
+              <thead>
+                <tr className="align-bottom">
+                  {/* WHAT MATTERS — plain label */}
+                  <th className="bg-cream text-left p-5 text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">
+                    WHAT MATTERS
+                  </th>
+
+                  {/* ENERGY DRINKS — can icon above label */}
+                  <th className="bg-cream p-5 text-center text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">
+                    <div className="flex flex-col items-center gap-3">
+                      <img
+                        src={energyDrinkImg}
+                        alt="Energy drink can"
+                        className="h-20 w-auto object-contain"
+                      />
+                      <span>ENERGY DRINKS</span>
                     </div>
-                  </td>
-                  <td className="p-5 text-ink/70">
-                    <div className="flex items-center gap-3">
-                      <Minus className="h-5 w-5 text-ink/40 shrink-0" /> {b}
+                  </th>
+
+                  {/* OTHER GELS — gel packet icon above label */}
+                  <th className="bg-cream p-5 text-center text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">
+                    <div className="flex flex-col items-center gap-3">
+                      <img
+                        src={otherGelsImg}
+                        alt="Other gels packet"
+                        className="h-20 w-auto object-contain"
+                      />
+                      <span>OTHER GELS</span>
                     </div>
-                  </td>
-                  <td className="bg-ink p-5 text-cream">
-                    <div className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-honey shrink-0" />
-                      <span className="font-semibold">{c}</span>
-                    </div>
-                  </td>
+                  </th>
+
+                  {/* HIVERON — plain dark label bar, image lives above via absolute positioning */}
+                  <th className="bg-ink p-5 text-center text-sm font-bold tracking-[0.15em] text-honey rounded-t-lg align-bottom">
+                    HIVERON
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {ROWS.map(([label, a, b, c], i) => (
+                  <tr key={label} className={i % 2 ? "bg-ink/[0.03]" : ""}>
+                    <td className="p-5 font-semibold text-ink">{label}</td>
+                    <td className="p-5 text-ink/70">
+                      <div className="flex items-center gap-3">
+                        <X className="h-5 w-5 text-ink/40 shrink-0" /> {a}
+                      </div>
+                    </td>
+                    <td className="p-5 text-ink/70">
+                      <div className="flex items-center gap-3">
+                        <Minus className="h-5 w-5 text-ink/40 shrink-0" /> {b}
+                      </div>
+                    </td>
+                    <td className="bg-ink p-5 text-cream">
+                      <div className="flex items-center gap-3">
+                        <Check className="h-5 w-5 text-honey shrink-0" />
+                        <span className="font-semibold">{c}</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div className="mt-12 flex justify-center">
@@ -302,18 +347,18 @@ function Compare() {
           </a>
         </div>
 
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-5 gap-8">
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { t: "No Artificial Anything", s: "Just real ingredients." },
-            { t: "Clean Energy That Lasts", s: "Perform longer." },
-            { t: "Easy on Your Stomach", s: "Fuel without discomfort." },
-            { t: "Trusted by Real Athletes", s: "Built for performance." },
-            { t: "Tested. Safe. Effective.", s: "Because you deserve better." },
+            { icon: artificialIcon, t: "No Artificial Flavors", s: "Just real ingredients." },
+            { icon: energyIcon, t: "Clean Energy That Lasts", s: "Perform longer." },
+            { icon: stomachIcon, t: "Easy on Your Stomach", s: "Fuel without discomfort." },
           ].map((b) => (
-            <div key={b.t} className="text-center md:text-left">
-              <HexBadge />
-              <h4 className="mt-4 font-bold text-ink">{b.t}</h4>
-              <p className="mt-1 text-sm text-ink/60">{b.s}</p>
+            <div key={b.t} className="flex items-start gap-5">
+              <img src={b.icon} alt={b.t} className="h-16 w-16 shrink-0 object-contain" />
+              <div>
+                <h4 className="font-bold text-ink">{b.t}</h4>
+                <p className="mt-1 text-sm text-ink/60">{b.s}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -391,49 +436,59 @@ function Waitlist() {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <section id="waitlist" className="relative bg-ink text-cream overflow-hidden">
+    <section id="waitlist" className="relative min-h-screen bg-ink text-cream overflow-hidden flex items-center">
+      {/* Full-bleed background — sun sits centre-right, keep it unobscured */}
       <img
         src={waitlistImg}
-        alt="Runner heading toward sunrise"
-        className="absolute inset-0 h-full w-full object-cover opacity-40"
+        alt="Runner heading toward sunrise in the mountains"
+        className="absolute inset-0 h-full w-full object-cover object-center"
         loading="lazy"
         width={1600}
-        height={1280}
+        height={1067}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/40" />
+      {/* Thin dark fade only on left edge so text is readable */}
+      <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/30 to-transparent" />
+      {/* Thin dark fade on right edge so form card blends in */}
+      <div className="absolute inset-0 bg-gradient-to-l from-ink/85 via-transparent to-transparent" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 md:px-12 py-24 md:py-32 lg:grid-cols-2">
-        <div>
+      <div className="relative w-full mx-auto max-w-7xl pl-6 md:pl-12 pr-0 py-24 md:py-32 flex flex-col lg:flex-row items-start lg:items-center gap-8">
+        {/* LEFT — content */}
+        <div className="max-w-md flex-1">
           <SectionLabel>FOUNDING MEMBER ACCESS</SectionLabel>
-          <h2 className="text-display mt-6 text-5xl md:text-6xl lg:text-7xl font-black text-cream">
-            THE HIVE IS <span className="text-honey">FORMING.</span>
+          <h2 className="text-display mt-6 text-5xl md:text-6xl lg:text-7xl font-black text-cream leading-none">
+            THE HIVE IS{" "}<br /><span className="text-honey">FORMING.</span>
           </h2>
-          <p className="mt-6 max-w-md text-cream/80 text-lg">
+          <p className="mt-6 max-w-sm text-cream/80 text-lg leading-relaxed">
             Join before launch and unlock exclusive founding member benefits.
           </p>
 
-          <p className="mt-12 text-sm font-bold tracking-[0.2em] text-honey">WHY JOIN EARLY?</p>
-          <ul className="mt-6 max-w-md divide-y divide-cream/10">
+          <p className="mt-10 text-sm font-bold tracking-[0.2em] text-honey">WHY JOIN EARLY?</p>
+          <ul className="mt-5 space-y-5">
             {[
               { icon: <Tag className="h-5 w-5" />, t: "25% LAUNCH DISCOUNT", s: "Get founder pricing before public launch." },
               { icon: <Rocket className="h-5 w-5" />, t: "PRIORITY ACCESS", s: "Be the first to get your hands on Hiveron." },
               { icon: <Award className="h-5 w-5" />, t: "FOUNDING MEMBER BADGE", s: "Exclusive status. Limited to early members." },
               { icon: <Gift className="h-5 w-5" />, t: "EXCLUSIVE PRODUCT DROPS", s: "Special editions. Members only." },
             ].map((b) => (
-              <li key={b.t} className="flex items-start gap-4 py-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-honey text-honey">
-                  {b.icon}
+              <li key={b.t} className="flex items-start gap-4">
+                {/* Hexagon icon badge */}
+                <div className="relative flex h-11 w-11 shrink-0 items-center justify-center">
+                  <svg viewBox="0 0 40 44" className="absolute inset-0 h-11 w-11 text-honey" fill="none">
+                    <polygon points="20,2 38,12 38,32 20,42 2,32 2,12" stroke="currentColor" strokeWidth="1.8" />
+                  </svg>
+                  <span className="relative text-honey">{b.icon}</span>
                 </div>
                 <div>
                   <p className="font-bold tracking-wider text-cream text-sm">{b.t}</p>
-                  <p className="text-sm text-cream/60">{b.s}</p>
+                  <p className="text-sm text-cream/60 mt-0.5">{b.s}</p>
                 </div>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="rounded-2xl border border-cream/10 bg-ink/80 backdrop-blur-md p-8 md:p-10 shadow-deep">
+        {/* RIGHT — form card pinned to right so the sun stays visible in the centre */}
+        <div className="ml-auto w-full max-w-sm lg:w-[400px] shrink-0 rounded-2xl border border-honey/30 bg-ink/85 backdrop-blur-md p-8 shadow-deep">
           <h3 className="text-display text-4xl md:text-5xl font-black text-cream">
             JOIN <span className="text-honey">THE HIVE</span>
           </h3>
@@ -457,7 +512,7 @@ function Waitlist() {
               <Field icon={<Phone className="h-4 w-4" />} placeholder="Phone Number" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} />
               <button
                 type="submit"
-                className="mt-2 flex w-full items-center justify-center gap-3 bg-honey py-4 text-sm font-bold tracking-[0.15em] text-ink hover:bg-honey-glow transition-colors shadow-honey"
+                className="mt-2 flex w-full items-center justify-center gap-3 bg-honey py-4 text-sm font-bold tracking-[0.15em] text-ink hover:bg-honey-glow transition-colors shadow-honey rounded-lg"
               >
                 JOIN THE WAITLIST <ArrowRight className="h-4 w-4" />
               </button>
