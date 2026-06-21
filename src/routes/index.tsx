@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   Zap, Droplet, Hexagon, ArrowRight, Check, X, Minus, Tag, Rocket, Award, Gift,
-  Mail, Phone, MapPin, User, Lock, Instagram, Youtube, Activity,
+  Mail, Phone, MapPin, User, Lock, Instagram, Youtube, Activity, ChevronDown,
 } from "lucide-react";
 import heroImg from "@/assets/hiveron-hero-img.png";
 import problemImg from "@/assets/problem.jpg";
@@ -23,11 +23,9 @@ export const Route = createFileRoute("/")({
 
 const NAV = [
   { label: "HOME", href: "#home" },
-  { label: "PROBLEM", href: "#problem" },
   { label: "PRODUCT", href: "#product" },
   { label: "WAITLIST", href: "#waitlist" },
-  { label: "WHY HIVERON", href: "#why" },
-  { label: "THE FUEL", href: "#fuel" },
+  { label: "FAQ", href: "#faq" },
   { label: "CONTACT", href: "#contact" },
 ];
 
@@ -77,6 +75,7 @@ function HiveronHome() {
       <Waitlist />
       <Compare />
       <Formula />
+      <FAQ />
       <Contact />
       <Footer />
     </main>
@@ -188,35 +187,33 @@ function Product() {
   return (
     <section id="product" className="relative bg-ink text-cream overflow-hidden">
       <div className="absolute inset-0 honeycomb-pattern opacity-30" />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 md:px-12 py-24 md:py-32 md:grid-cols-2">
-        {/* Text — left column */}
-        <div>
-          <SectionLabel>MEET HIVERON</SectionLabel>
-          <h2 className="text-display mt-6 text-5xl md:text-6xl lg:text-7xl font-black">
-            FUNCTIONAL<br />HONEY FUEL<span className="text-honey">.</span>
-          </h2>
-          <p className="mt-8 text-lg text-cream/70 max-w-md">
-            Built using nature's most effective energy source.
-          </p>
-          <div className="mt-10 h-px w-40 bg-honey" />
-          <ul className="mt-8 space-y-4">
-            {["Fast fuel.", "Steady performance.", "No crash."].map((t) => (
-              <li key={t} className="flex items-center gap-4 text-xl text-cream">
-                <span className="text-honey font-bold">/</span> {t}
-              </li>
-            ))}
-          </ul>
+      <div className="relative grid md:grid-cols-2 min-h-[600px] md:min-h-[700px]">
+        {/* Text — left column: ml-auto pushes text block to the right (close to image), leaving natural left margin */}
+        <div className="flex flex-col justify-center py-24 md:py-32 px-6 md:px-10">
+          <div className="ml-auto w-full max-w-xs md:max-w-sm pr-2 md:pr-4">
+            <SectionLabel>MEET HIVERON</SectionLabel>
+            <h2 className="text-display mt-6 text-5xl md:text-6xl lg:text-7xl font-black">
+              FUNCTIONAL<br />HONEY FUEL<span className="text-honey">.</span>
+            </h2>
+            <p className="mt-8 text-lg text-cream/70">
+              Built using nature's most effective energy source.
+            </p>
+            <div className="mt-10 h-px w-40 bg-honey" />
+            <ul className="mt-8 space-y-4">
+              {["Fast fuel.", "Steady performance.", "No crash."].map((t) => (
+                <li key={t} className="flex items-center gap-4 text-xl text-cream">
+                  <span className="text-honey font-bold">/</span> {t}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        {/* Image — right column */}
-        <div className="relative">
-          <div
-            className="absolute -inset-10 rounded-full opacity-50 blur-3xl"
-            style={{ background: "radial-gradient(circle, var(--honey) 0%, transparent 60%)" }}
-          />
+        {/* Image — full-bleed right column */}
+        <div className="relative min-h-[400px] md:min-h-full">
           <img
             src={productImg}
             alt="Hiveron honey fuel product"
-            className="relative mx-auto max-h-[600px] w-full object-cover rounded-xl drop-shadow-2xl"
+            className="absolute inset-0 h-full w-full object-cover object-center"
             loading="lazy"
             width={1024}
             height={1024}
@@ -262,8 +259,8 @@ function Compare() {
         <div className="relative mt-16">
           {/* Hiveron image — absolutely positioned ABOVE the table, outside the overflow container */}
           <div
-            className="absolute right-0 bottom-full z-20  rounded-t-lg flex flex-col items-center px-6 pt-5 pb-0"
-            style={{ width: "20%" }}
+            className="absolute right-[6%] bottom-[calc(100%+0.75rem)] z-20 flex flex-col items-center rounded-t-lg px-6 pt-5 pb-0"
+            style={{ width: "clamp(130px, 12vw, 160px)" }}
           >
             <img
               src={hiveronCompareImg}
@@ -386,22 +383,24 @@ function HexBadge({ children }: { children?: React.ReactNode }) {
 /* ─────────────────────── FORMULA ─────────────────────── */
 function Formula() {
   return (
-    <section id="fuel" className="bg-white text-ink">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 md:px-12 py-24 md:py-32 md:grid-cols-2">
-        <div>
+    <section id="fuel" className="bg-white text-ink overflow-hidden">
+      <div className="grid md:grid-cols-2 min-h-[700px]">
+        {/* Image — full-bleed left column, no padding */}
+        <div className="relative min-h-[400px] md:min-h-full">
           <img
             src={formulaImg}
             alt="Hiveron formula — raw honey, coffee beans"
-            className="w-full rounded-lg object-cover shadow-deep"
+            className="absolute inset-0 h-full w-full object-contain object-right"
             loading="lazy"
             width={1024}
             height={1280}
           />
         </div>
-        <div>
+        {/* Content — right column with padding */}
+        <div className="flex flex-col justify-center px-8 md:px-14 lg:px-20 py-20 md:py-28">
           <SectionLabel>THE FORMULA</SectionLabel>
           <h2 className="text-display mt-6 text-4xl sm:text-5xl md:text-6xl font-black text-ink">
-            THREE INGREDIENTS. ONE UNFAIR ADVANTAGE<span className="text-honey">.</span>
+            THREE INGREDIENTS.<br />ONE UNFAIR<br />ADVANTAGE<span className="text-honey">.</span>
           </h2>
           <div className="mt-12 space-y-8">
             {[
@@ -424,6 +423,78 @@ function Formula() {
           <p className="text-display mt-8 text-2xl md:text-3xl font-black text-ink leading-tight">
             ONE SACHET.<br />ONE DECISION.<br />YOUR BEST RUN.
           </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────── FAQ ─────────────────────── */
+const FAQS = [
+  {
+    q: "What exactly is Hiveron?",
+    a: "Hiveron is a functional honey fuel sachet designed for runners, cyclists, and high performers. Each 20g sachet contains raw honey, essential electrolytes, and 50mg of precision-dosed caffeine — clean energy from nature, optimised for endurance.",
+  },
+  {
+    q: "How is Hiveron different from regular energy gels?",
+    a: "Most gels are built on artificial sweeteners, synthetic stimulants, and hidden ingredient blends. Hiveron uses raw honey as its base — nature's original performance fuel — paired with electrolytes for hydration and just 50mg caffeine to sharpen focus without the spike and crash.",
+  },
+  {
+    q: "Will I get a caffeine crash after using it?",
+    a: "No. The 50mg dose is intentionally calibrated — enough to deliver mental clarity and physical drive, but not so much that it over-stimulates your system. Paired with honey's natural energy curve, there's no sharp drop afterwards.",
+  },
+  {
+    q: "Is Hiveron suitable for people with sensitive stomachs?",
+    a: "Yes. Raw honey is gentle on the gut and absorbs quickly. We've specifically avoided artificial preservatives, synthetic flavours, and heavy carb blends that commonly cause GI distress during exercise. Hiveron is light, smooth, and gut-friendly.",
+  },
+  {
+    q: "Is Hiveron available to buy now?",
+    a: "Hiveron is currently in its founding-member phase — not yet on shelves. Join the waitlist today to secure early access, lock in your 25% launch discount, and be among the first to receive your sachets when we launch.",
+  },
+  {
+    q: "What sports or activities is Hiveron best suited for?",
+    a: "Hiveron is built for endurance. Running, cycling, triathlon, hiking, and any high-output activity that demands sustained energy and mental focus. If your sport requires you to push through, Hiveron is made for that moment.",
+  },
+];
+
+function FAQ() {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <section id="faq" className="bg-white text-ink py-24 md:py-32">
+      <div className="mx-auto max-w-3xl px-6 md:px-12">
+        <div className="text-center mb-16">
+          <SectionLabel>GOT QUESTIONS?</SectionLabel>
+          <h2 className="text-display mt-6 text-4xl sm:text-5xl md:text-6xl font-black text-ink">
+            WE HAVE<br />ANSWERS<span className="text-honey">.</span>
+          </h2>
+        </div>
+        <div className="space-y-3">
+          {FAQS.map((item, i) => (
+            <div
+              key={i}
+              className="border border-ink/15 hover:border-honey/50 transition-colors"
+            >
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                className="w-full flex items-center justify-between gap-6 px-6 py-5 text-left"
+                aria-expanded={open === i}
+              >
+                <span className="font-bold tracking-wide text-ink text-base md:text-lg">{item.q}</span>
+                <ChevronDown
+                  className={`h-5 w-5 shrink-0 text-honey transition-transform duration-300 ${
+                    open === i ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  open === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                }`}
+              >
+                <p className="px-6 pb-6 text-ink/60 leading-relaxed">{item.a}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
