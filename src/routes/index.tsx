@@ -5,7 +5,8 @@ import {
   Mail, Phone, MapPin, User, Lock, Instagram, Youtube, Activity, ChevronDown,
 } from "lucide-react";
 import heroImg from "@/assets/hiveron-hero-img.png";
-import problemImg from "@/assets/problem.jpg";
+import athleteImg from "@/assets/problem.jpg";
+import problemImg from "@/assets/hiveron-problem-img.png";
 import formulaImg from "@/assets/hiveron-formula-img.png";
 import waitlistImg from "@/assets/hiveron-waitlist-img.png";
 import logoImg from "@/assets/logo/hiveron-logo.png";
@@ -16,6 +17,8 @@ import hiveronCompareImg from "@/assets/hiveron-compare.png";
 import artificialIcon from "@/assets/icons/artifical_icon.png";
 import energyIcon from "@/assets/icons/energy_icon.png";
 import stomachIcon from "@/assets/icons/stomach_icon.png";
+import { postJson } from "@/lib/api";
+import clsx from "clsx";
 
 export const Route = createFileRoute("/")({
   component: HiveronHome,
@@ -102,8 +105,8 @@ function Hero() {
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 md:px-12 pt-28 pb-20">
         <div className="max-w-2xl">
           <h1 className="text-display text-cream text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black">
-            NATURE'S MOST<br />POWERFUL FUEL.<br />
-            <span className="text-honey">FINALLY</span> IN<br />YOUR HANDS.
+            TASTE <br /> THE
+            <span className="text-honey">WIN</span>
           </h1>
           <p className="mt-8 max-w-md text-base md:text-lg text-cream/70 leading-relaxed">
             Functional Honey Fuel designed for runners, cyclists and high performers.
@@ -139,34 +142,129 @@ function BarItem({ icon, text }: { icon?: React.ReactNode; text: string }) {
 /* ─────────────────────── PROBLEM ─────────────────────── */
 function Problem() {
   return (
-    <section id="problem" className="relative bg-cream text-ink">
-      <div className="grid md:grid-cols-2">
-        <div className="relative min-h-[400px] md:min-h-[700px]">
+    <section id="problem" className="relative bg-[#f5f0e8] text-ink overflow-hidden">
+      {/* Two-column outer wrapper: athlete photo left | content right */}
+      <div className="flex flex-col md:flex-row min-h-[700px] lg:min-h-[800px]">
+
+        {/* LEFT — full-bleed dark athlete photo, ~38% width */}
+        <div className="relative w-full md:w-[38%] shrink-0 min-h-[320px] md:min-h-full">
           <img
-            src={problemImg}
+            src={athleteImg}
             alt="Exhausted athlete surrounded by energy drink cans"
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover object-top"
             loading="lazy"
-            width={1024}
-            height={1280}
+            width={800}
+            height={1200}
           />
         </div>
-        <div className="relative px-6 md:px-16 lg:px-20 py-20 md:py-32">
-          <div className="honeycomb-pattern absolute right-0 bottom-0 h-80 w-80 opacity-30 pointer-events-none" />
-          <div className="relative max-w-xl">
-            <SectionLabel>THE PROBLEM</SectionLabel>
-            <h2 className="text-display mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-ink">
-              ENERGY SHOULD NOT COME WITH A CRASH<span className="text-honey">.</span>
+
+        {/* RIGHT — cream panel with all content */}
+        <div className="relative flex-1 flex flex-col justify-between px-8 md:px-10 lg:px-14 py-10 md:py-12 overflow-hidden">
+
+          {/* ── Label + Headline ── */}
+          <div>
+            <p className="text-xs font-bold tracking-[0.28em] text-[#e07a20] uppercase">THE PROBLEM</p>
+            <h2 className="text-display mt-3 text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.02] text-ink">
+              ENERGY SHOULD<br />NOT COME WITH<br />A CRASH<span className="text-[#e07a20]">.</span>
             </h2>
-            <div className="mt-10 space-y-4 text-lg text-ink/80">
-              <p>Artificial stimulants.</p>
-              <p>Sugar crashes.</p>
-              <p>Temporary energy.</p>
-              <p>Most products solve one problem and create another.</p>
-            </div>
-            <div className="mt-10 h-px w-40 bg-honey" />
-            <p className="mt-8 text-xl font-bold text-ink">Hiveron was built differently.</p>
+            <p className="mt-4 text-sm text-ink/60 leading-relaxed">
+              Most energy products create a spike.<br />The crash is the price you pay later.
+            </p>
           </div>
+
+          {/* ── Graph + Legend (side by side) ── */}
+          <div className="mt-6 flex items-end gap-4">
+            {/* Graph image */}
+            <div className="flex-1 min-w-0">
+              <p className="text-[9px] font-bold tracking-[0.22em] text-ink/50 mb-1 uppercase">Energy Level</p>
+              <img
+                src={problemImg}
+                alt="Energy level comparison chart over time"
+                className="w-full object-contain"
+                loading="lazy"
+              />
+              <p className="text-[9px] font-bold tracking-[0.22em] text-ink/50 mt-0.5 text-right uppercase">Time →</p>
+            </div>
+
+            {/* Legend + product image stacked */}
+            <div className="shrink-0 flex flex-col items-end gap-5 pb-1">
+              {/* Legend lines */}
+              <div className="space-y-2">
+                {[
+                  { color: "#1a1a1a", dash: false, label: "ENERGY DRINKS" },
+                  { color: "#888", dash: true, label: "COFFEE" },
+                  { color: "#e07a20", dash: false, label: "HIVERON" },
+                ].map(({ color, dash, label }) => (
+                  <div key={label} className="flex items-center gap-2.5">
+                    <svg width="32" height="10" className="shrink-0">
+                      <line x1="0" y1="5" x2="32" y2="5" stroke={color} strokeWidth="2" strokeDasharray={dash ? "5 3" : "none"} />
+                    </svg>
+                    <span className="text-[10px] font-bold tracking-[0.15em] text-ink whitespace-nowrap">{label}</span>
+                  </div>
+                ))}
+              </div>
+              {/* Product image pinned bottom-right */}
+              ``
+            </div>
+          </div>
+
+          {/* ── Three comparison cards ── */}
+          <div className="mt-6 grid grid-cols-3 border border-ink/10 divide-x divide-ink/10">
+            {/* Energy Drinks */}
+            <div className="px-4 py-6 bg-[#f5f0e8]">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-ink/20 mb-4 mx-auto">
+                <svg viewBox="0 0 24 24" className="w-4 h-4 text-ink/70" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <path d="M13 2v4M13 6l4 4H7l6-4M7 10l-2 10h14L17 10H7Z" />
+                </svg>
+              </div>
+              <h3 className="text-center text-[10px] font-black tracking-[0.2em] text-ink mb-2 uppercase">Energy Drinks</h3>
+              <div className="mx-auto w-8 h-0.5 bg-ink/20 mb-3" />
+              <p className="text-center text-xs text-ink/60 leading-relaxed">High spike.<br />Hard crash.</p>
+            </div>
+
+            {/* Coffee */}
+            <div className="px-4 py-6 bg-[#f5f0e8]">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-ink/20 mb-4 mx-auto">
+                <svg viewBox="0 0 24 24" className="w-4 h-4 text-ink/70" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <path d="M6 2c0 0 1 1 1 2s-1 2-1 2M10 2c0 0 1 1 1 2s-1 2-1 2M17 10H5a1 1 0 000 1l1 8a1 1 0 001 1h8a1 1 0 001-1l1-8a1 1 0 000-1zM17 12h1a2 2 0 000-4h-1" />
+                </svg>
+              </div>
+              <h3 className="text-center text-[10px] font-black tracking-[0.2em] text-ink mb-2 uppercase">Coffee</h3>
+              <div className="mx-auto w-8 h-0.5 bg-ink/20 mb-3" />
+              <p className="text-center text-xs text-ink/60 leading-relaxed">Quick boost.<br />Short-lived.</p>
+            </div>
+
+            {/* Hiveron */}
+            <div className="px-4 py-6 bg-[#f5f0e8]">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-[#e07a20] mb-4 mx-auto">
+                <svg viewBox="0 0 24 24" className="w-4 h-4 text-[#e07a20]" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <path d="M12 3l1.8 3.6L18 7.5l-3 2.9.7 4.1L12 12.6l-3.7 1.9.7-4.1L6 7.5l4.2-.9z" />
+                </svg>
+              </div>
+              <h3 className="text-center text-[10px] font-black tracking-[0.2em] text-[#e07a20] mb-2 uppercase">Hiveron</h3>
+              <div className="mx-auto w-8 h-0.5 bg-[#e07a20] mb-3" />
+              <p className="text-center text-xs text-ink/60 leading-relaxed">
+                Sustained energy.<br />No crash.<br /><strong className="text-ink">Just performance.</strong>
+              </p>
+            </div>
+          </div>
+
+          {/* ── Bottom tagline banner ── */}
+          <div className="mt-4 flex items-center gap-4 bg-[#ede8de] border border-ink/10 px-6 py-4">
+            {/* Honeycomb icon cluster */}
+            <div className="shrink-0">
+              <svg viewBox="0 0 48 48" className="w-10 h-10 text-[#e07a20]" fill="currentColor">
+                <polygon points="14,4 22,4 26,11 22,18 14,18 10,11" />
+                <polygon points="26,4 34,4 38,11 34,18 26,18 22,11" />
+                <polygon points="20,18 28,18 32,25 28,32 20,32 16,25" />
+              </svg>
+            </div>
+            <p className="text-sm text-ink/70 leading-relaxed">
+              Hiveron delivers clean, functional energy that performs with you,{" "}
+              <strong className="text-ink">not against you.</strong>
+            </p>
+          </div>
+
         </div>
       </div>
     </section>
@@ -481,15 +579,13 @@ function FAQ() {
               >
                 <span className="font-bold tracking-wide text-ink text-base md:text-lg">{item.q}</span>
                 <ChevronDown
-                  className={`h-5 w-5 shrink-0 text-honey transition-transform duration-300 ${
-                    open === i ? "rotate-180" : ""
-                  }`}
+                  className={`h-5 w-5 shrink-0 text-honey transition-transform duration-300 ${open === i ? "rotate-180" : ""
+                    }`}
                 />
               </button>
               <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  open === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                }`}
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${open === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                  }`}
               >
                 <p className="px-6 pb-6 text-ink/60 leading-relaxed">{item.a}</p>
               </div>
@@ -505,6 +601,8 @@ function FAQ() {
 function Waitlist() {
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <section id="waitlist" className="relative min-h-screen bg-ink text-cream overflow-hidden flex items-center">
@@ -572,9 +670,19 @@ function Waitlist() {
             </div>
           ) : (
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                setSubmitted(true);
+                setSubmitting(true);
+                setError(null);
+
+                try {
+                  await postJson("/api/waitlist", form);
+                  setSubmitted(true);
+                } catch (requestError) {
+                  setError(requestError instanceof Error ? requestError.message : "Unable to join the waitlist.");
+                } finally {
+                  setSubmitting(false);
+                }
               }}
               className="mt-8 space-y-4"
             >
@@ -583,10 +691,12 @@ function Waitlist() {
               <Field icon={<Phone className="h-4 w-4" />} placeholder="Phone Number" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} />
               <button
                 type="submit"
-                className="mt-2 flex w-full items-center justify-center gap-3 bg-honey py-4 text-sm font-bold tracking-[0.15em] text-ink hover:bg-honey-glow transition-colors shadow-honey rounded-lg"
+                disabled={submitting}
+                className="mt-2 flex w-full items-center justify-center gap-3 rounded-lg bg-honey py-4 text-sm font-bold tracking-[0.15em] text-ink shadow-honey transition-colors hover:bg-honey-glow disabled:cursor-not-allowed disabled:opacity-70"
               >
-                JOIN THE WAITLIST <ArrowRight className="h-4 w-4" />
+                {submitting ? "SAVING..." : "JOIN THE WAITLIST"} <ArrowRight className="h-4 w-4" />
               </button>
+              {error && <p className="text-sm text-red-300">{error}</p>}
               <p className="flex items-center justify-center gap-2 text-xs text-cream/50 pt-2">
                 <Lock className="h-3.5 w-3.5" /> No spam. Just product updates.
               </p>
@@ -618,6 +728,11 @@ function Field({
 
 /* ─────────────────────── CONTACT ─────────────────────── */
 function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   return (
     <section id="contact" className="bg-white text-ink py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl gap-16 px-6 md:px-12 lg:grid-cols-2">
@@ -638,25 +753,45 @@ function Contact() {
         </div>
 
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setSubmitting(true);
+            setError(null);
+
+            try {
+              await postJson("/api/contact", form);
+              setSubmitted(true);
+              setForm({ name: "", email: "", subject: "", message: "" });
+            } catch (requestError) {
+              setError(requestError instanceof Error ? requestError.message : "Unable to send your message.");
+            } finally {
+              setSubmitting(false);
+            }
+          }}
           className="space-y-4"
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <LightField placeholder="Full Name" />
-            <LightField placeholder="Email Address" type="email" />
+            <LightField placeholder="Full Name" value={form.name} onChange={(value) => setForm({ ...form, name: value })} />
+            <LightField placeholder="Email Address" type="email" value={form.email} onChange={(value) => setForm({ ...form, email: value })} />
           </div>
-          <LightField placeholder="Subject" />
+          <LightField placeholder="Subject" value={form.subject} onChange={(value) => setForm({ ...form, subject: value })} />
           <textarea
             placeholder="Your Message"
             rows={7}
+            required
+            value={form.message}
+            onChange={(event) => setForm({ ...form, message: event.target.value })}
             className="w-full rounded-lg border border-ink/15 bg-transparent px-5 py-4 text-ink placeholder:text-ink/40 outline-none focus:border-honey transition-colors"
           />
           <button
             type="submit"
-            className="flex w-full items-center justify-center gap-3 bg-honey py-4 text-sm font-bold tracking-[0.15em] text-ink hover:bg-honey-glow transition-colors shadow-honey"
+            disabled={submitting}
+            className="flex w-full items-center justify-center gap-3 bg-honey py-4 text-sm font-bold tracking-[0.15em] text-ink shadow-honey transition-colors hover:bg-honey-glow disabled:cursor-not-allowed disabled:opacity-70"
           >
-            SEND MESSAGE <ArrowRight className="h-4 w-4" />
+            {submitting ? "SENDING..." : "SEND MESSAGE"} <ArrowRight className="h-4 w-4" />
           </button>
+          {submitted && <p className="text-sm text-ink/70">Thanks. Your message has been sent.</p>}
+          {error && <p className="text-sm text-red-600">{error}</p>}
         </form>
       </div>
     </section>
@@ -676,11 +811,24 @@ function ContactRow({ icon, label, value }: { icon: React.ReactNode; label: stri
     </div>
   );
 }
-function LightField({ placeholder, type = "text" }: { placeholder: string; type?: string }) {
+function LightField({
+  placeholder,
+  type = "text",
+  value,
+  onChange,
+}: {
+  placeholder: string;
+  type?: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
   return (
     <input
       type={type}
+      required
       placeholder={placeholder}
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
       className="w-full rounded-lg border border-ink/15 bg-transparent px-5 py-4 text-ink placeholder:text-ink/40 outline-none focus:border-honey transition-colors"
     />
   );

@@ -87,6 +87,11 @@ src/
 ├── router.tsx          # Router configuration
 ├── server.ts           # Server configuration
 └── start.ts            # Application entry point
+
+backend/
+├── src/server.js       # Express API for waitlist and contact form submissions
+├── package.json        # Backend dependencies and scripts
+└── .env.example        # MongoDB Atlas and server environment variables
 ```
 
 ## Routing
@@ -126,6 +131,14 @@ Create a `.env.local` file in the root directory with any required environment v
 ```env
 # Example
 VITE_API_URL=http://localhost:3000
+```
+
+For the backend, create `backend/.env` from `backend/.env.example` and set your MongoDB Atlas connection string:
+
+```env
+PORT=3001
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/hivron
+FRONTEND_ORIGIN=http://localhost:5173
 ```
 
 ## Scripts Details
