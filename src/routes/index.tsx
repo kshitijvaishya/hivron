@@ -204,7 +204,6 @@ function Problem() {
                 ))}
               </div>
               {/* Product image pinned bottom-right */}
-              ``
             </div>
           </div>
 
@@ -353,84 +352,76 @@ function Compare() {
           </div>
         </div>
 
-        {/* Outer wrapper is relative so the Hiveron image can escape the overflow-x-auto container */}
-        <div className="relative mt-16">
-          {/* Hiveron image — absolutely positioned ABOVE the table, outside the overflow container */}
-          <div
-            className="absolute right-[6%] bottom-[calc(100%+0.75rem)] z-20 flex flex-col items-center rounded-t-lg px-6 pt-5 pb-0"
-            style={{ width: "clamp(130px, 12vw, 160px)" }}
-          >
-            <img
-              src={hiveronCompareImg}
-              alt="Hiveron honey fuel gel"
-              className="w-full max-h-52 object-contain drop-shadow-2xl"
-            />
-          </div>
+        <div className="mt-16 overflow-x-auto">
+          <table className="w-full min-w-[800px] border-separate border-spacing-0">
+            <thead>
+              <tr className="align-bottom">
+                {/* WHAT MATTERS — plain label */}
+                <th className="bg-cream text-left p-5 text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">
+                  WHAT MATTERS
+                </th>
 
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[800px] border-separate border-spacing-0">
-              <thead>
-                <tr className="align-bottom">
-                  {/* WHAT MATTERS — plain label */}
-                  <th className="bg-cream text-left p-5 text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">
-                    WHAT MATTERS
-                  </th>
+                {/* ENERGY DRINKS — can icon above label */}
+                <th className="bg-cream p-5 text-center text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">
+                  <div className="flex flex-col items-center gap-3">
+                    <img
+                      src={energyDrinkImg}
+                      alt="Energy drink can"
+                      className="h-20 w-auto object-contain"
+                    />
+                    <span>ENERGY DRINKS</span>
+                  </div>
+                </th>
 
-                  {/* ENERGY DRINKS — can icon above label */}
-                  <th className="bg-cream p-5 text-center text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">
-                    <div className="flex flex-col items-center gap-3">
-                      <img
-                        src={energyDrinkImg}
-                        alt="Energy drink can"
-                        className="h-20 w-auto object-contain"
-                      />
-                      <span>ENERGY DRINKS</span>
+                {/* OTHER GELS — gel packet icon above label */}
+                <th className="bg-cream p-5 text-center text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">
+                  <div className="flex flex-col items-center gap-3">
+                    <img
+                      src={otherGelsImg}
+                      alt="Other gels packet"
+                      className="h-20 w-auto object-contain"
+                    />
+                    <span>OTHER GELS</span>
+                  </div>
+                </th>
+
+                {/* HIVERON — image and label in the same placeholder cell */}
+                <th className="bg-ink p-5 text-center text-sm font-bold tracking-[0.15em] text-honey rounded-t-lg align-bottom">
+                  <div className="flex flex-col items-center gap-3">
+                    <img
+                      src={hiveronCompareImg}
+                      alt="Hiveron honey fuel gel"
+                      className="h-24 w-auto object-contain drop-shadow-2xl"
+                    />
+                    <span>HIVERON</span>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {ROWS.map(([label, a, b, c], i) => (
+                <tr key={label} className={i % 2 ? "bg-ink/[0.03]" : ""}>
+                  <td className="p-5 font-semibold text-ink">{label}</td>
+                  <td className="p-5 text-ink/70">
+                    <div className="flex items-center gap-3">
+                      <X className="h-5 w-5 text-ink/40 shrink-0" /> {a}
                     </div>
-                  </th>
-
-                  {/* OTHER GELS — gel packet icon above label */}
-                  <th className="bg-cream p-5 text-center text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">
-                    <div className="flex flex-col items-center gap-3">
-                      <img
-                        src={otherGelsImg}
-                        alt="Other gels packet"
-                        className="h-20 w-auto object-contain"
-                      />
-                      <span>OTHER GELS</span>
+                  </td>
+                  <td className="p-5 text-ink/70">
+                    <div className="flex items-center gap-3">
+                      <Minus className="h-5 w-5 text-ink/40 shrink-0" /> {b}
                     </div>
-                  </th>
-
-                  {/* HIVERON — plain dark label bar, image lives above via absolute positioning */}
-                  <th className="bg-ink p-5 text-center text-sm font-bold tracking-[0.15em] text-honey rounded-t-lg align-bottom">
-                    HIVERON
-                  </th>
+                  </td>
+                  <td className="bg-ink p-5 text-cream">
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-honey shrink-0" />
+                      <span className="font-semibold">{c}</span>
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {ROWS.map(([label, a, b, c], i) => (
-                  <tr key={label} className={i % 2 ? "bg-ink/[0.03]" : ""}>
-                    <td className="p-5 font-semibold text-ink">{label}</td>
-                    <td className="p-5 text-ink/70">
-                      <div className="flex items-center gap-3">
-                        <X className="h-5 w-5 text-ink/40 shrink-0" /> {a}
-                      </div>
-                    </td>
-                    <td className="p-5 text-ink/70">
-                      <div className="flex items-center gap-3">
-                        <Minus className="h-5 w-5 text-ink/40 shrink-0" /> {b}
-                      </div>
-                    </td>
-                    <td className="bg-ink p-5 text-cream">
-                      <div className="flex items-center gap-3">
-                        <Check className="h-5 w-5 text-honey shrink-0" />
-                        <span className="font-semibold">{c}</span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         <div className="mt-12 flex justify-center">
