@@ -1,5 +1,3 @@
-
-
 # Hiveron Web Application
 
 An industry-grade, full-stack application for **Hiveron**—a premium natural athletic energy gel brand. The application consists of a high-performance, responsive React frontend powered by **TanStack Start** and **Vite**, and a secure, light-weight database-connected REST API backend powered by **Express.js** and **Mongoose**.
@@ -78,20 +76,15 @@ graph TD
 │   ├── components/          # Reusable UI components
 │   │   └── ui/              # Radix UI + Tailwind design tokens
 │   ├── hooks/               # Custom React hooks (e.g. useInView)
-│   ├── lib/                 # Utility files & API clients
+│   ├── lib/                 # Utility files, db connections & API clients
 │   ├── routes/              # TanStack Router folder-structure routes
+│   │   ├── api/             # Serverless API routes (waitlist, contact)
 │   │   ├── __root.tsx       # Main page layout structure
 │   │   └── index.tsx        # Hiveron Home landing page layout
 │   ├── router.tsx           # Router configuration
 │   ├── server.ts            # Client-side SSR entry
 │   ├── start.ts             # Main bundle entry
 │   └── styles.css           # Global Tailwind & Custom UI styles
-├── backend/
-│   ├── src/
-│   │   └── server.js        # Main Express API entrypoint & routes
-│   ├── .env.example         # Template for environment configuration
-│   ├── package.json         # Backend node scripts & dependencies
-│   └── package-lock.json    # Backend locks
 ├── package.json             # Root-level configuration & dev dependencies
 ├── tsconfig.json            # Strict TypeScript configuration
 └── vite.config.ts           # Vite + TanStack compilation pipeline
@@ -109,61 +102,35 @@ Ensure you have the following software installed:
 - **NPM** or **Bun** package manager
 - **MongoDB Atlas Account** (or a local MongoDB instance running)
 
-### Backend Environment Setup
+### Local Environment Setup
 
-Create an active configuration file for the backend server:
+Create an active configuration file in the root directory:
 
-1. Copy the sample environment file in the `backend/` directory:
-   ```bash
-   cp backend/.env.example backend/.env
-   ```
-2. Open `backend/.env` and update the database URI and origin parameters:
+1. Create a `.env` file in the root workspace directory:
    ```env
-   PORT=3001
    MONGODB_URI=mongodb+srv://<db_user>:<db_password>@<your_cluster_address>.mongodb.net/hiveron
-   FRONTEND_ORIGIN=http://localhost:8080
    ```
 
 > [!WARNING]
-> Keep your `backend/.env` credentials secure. This file is excluded from repository commits by `.gitignore`.
+> Keep your `.env` credentials secure. This file is excluded from repository commits by `.gitignore`.
 
 ### Installation
 
-Install packages for both the root (frontend) and backend workspaces:
+Install packages for the project workspace:
 
 ```bash
-# Install root & frontend dependencies
 npm install
-
-# Install backend dependencies
-cd backend
-npm install
-cd ..
 ```
 
 ### Running the Application
 
-For development, run both servers simultaneously.
-
-#### 1. Start the Frontend Server (Vite)
-
-From the root workspace directory:
+For development, start the dev server:
 
 ```bash
 npm run dev
 ```
 
-The client dashboard will be available at **`http://localhost:8080`**.
-
-#### 2. Start the Backend Server (Express + MongoDB)
-
-From the `backend/` directory:
-
-```bash
-npm run dev
-```
-
-The API server will launch at **`http://localhost:3001`**, verifying database connection logs upon successful start.
+The application and its serverless API endpoints will be available at **`http://localhost:8080`**.
 
 ---
 
@@ -217,35 +184,20 @@ Submits a message through the customer service contact form.
     ```
   - **`400 Bad Request`**: Missing field constraints or invalid email.
 
-### GET `/health`
-
-Returns the status of the server node.
-
-- **Response**:
-  - **`200 OK`**:
-    ```json
-    {
-      "ok": true
-    }
-    ```
-
 ---
 
 ## Production Deployment
 
-### Frontend Deployment (Vercel)
+### Deployment (Vercel)
 
-The project is optimized for deployment on Vercel using the configured Nitro compiler preset:
+The project is optimized for deployment on Vercel as a unified single-deployment application:
 
-```bash
-npm run build
-```
-
-Upload the build artifacts to your hosting provider using standard CI/CD pipelines.
-
-### Backend Deployment
-
-Ensure standard environment variables (`MONGODB_URI`, `PORT`, `FRONTEND_ORIGIN`) are mapped in the production server environment dashboard, pointing `FRONTEND_ORIGIN` to the production URL of your frontend.
+1. Configure your build command:
+   ```bash
+   npm run build
+   ```
+2. In your Vercel Project Dashboard, navigate to **Settings** > **Environment Variables** and add:
+   - `MONGODB_URI`: Your MongoDB connection string.
 
 ---
 
