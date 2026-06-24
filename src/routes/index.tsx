@@ -169,8 +169,7 @@ function Hero() {
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 md:px-12 pt-28 pb-20">
         <div className="max-w-2xl">
           <h1 className="text-display text-cream text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black anim-fade-left" style={{ animationDelay: "100ms" }}>
-            BUILT <br /> TO{""}
-            <span className="text-honey">WIN</span>
+            BUILT <br /> TO <span className="text-honey">WIN</span>
           </h1>
           <p className="mt-8 max-w-md text-base md:text-lg text-cream/70 leading-relaxed anim-fade-up" style={{ animationDelay: "320ms" }}>
             Functional honey energy gel for runners, cyclists and endurance athletes. Three purposeful ingredients.
@@ -245,14 +244,13 @@ function Problem() {
           {/* ── Graph + Legend (side by side) ── */}
           <div className="mt-6 flex items-end gap-4">
             <div className="flex-1 min-w-0">
-              <p className="text-[9px] font-bold tracking-[0.22em] text-ink/50 mb-1 uppercase">Energy Level</p>
               <img
                 src={problemImg}
                 alt="Energy level comparison chart over time"
                 className="w-full object-contain"
                 loading="lazy"
               />
-              <p className="text-[9px] font-bold tracking-[0.22em] text-ink/50 mt-0.5 text-right uppercase">Time →</p>
+
             </div>
 
             <div className="shrink-0 flex flex-col items-end gap-5 pb-1">
@@ -912,9 +910,9 @@ function Contact() {
           </p>
           <div className="mt-8 h-px w-40 bg-honey" />
           <div className="mt-10 space-y-6">
-            <ContactRow icon={<Mail className="h-5 w-5" />} label="EMAIL" value="hello@gmail.com" />
+            <ContactRow icon={<Mail className="h-5 w-5" />} label="EMAIL" value="hiveron@gmail.com" />
             <ContactRow icon={<Phone className="h-5 w-5" />} label="PHONE" value="+91 9530743515" />
-            <ContactRow icon={<MapPin className="h-5 w-5" />} label="HEADQUARTERS" value="Bengaluru, Karnataka, India" />
+            <ContactRow icon={<MapPin className="h-5 w-5" />} label="HEADQUARTERS" value="Chandigarh, India" />
           </div>
         </div>
 
@@ -1013,7 +1011,8 @@ function Footer() {
         <div className="lg:col-span-2 flex items-start gap-5 border-r border-cream/10 lg:pr-8">
           <img src={logoImg} alt="Hiveron" className="h-14 w-24" width={56} height={56} />
           <p className="text-sm leading-relaxed text-cream/70 max-w-xs">
-            Functional Honey Fuel for runners, cyclists and high performers.
+            Functional honey energy gel for runners, cyclists and endurance athletes. Three purposeful ingredients.
+            Nothing unnecessary.
           </p>
         </div>
         <FooterCol title="PRODUCT" items={["Overview", "Ingredients", "How It Works", "FAQ"]} />
