@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:3001";
+
+
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL ?? "";
 
 type ApiResponse = {
   message?: string;
