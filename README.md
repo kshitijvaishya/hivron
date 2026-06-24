@@ -1,6 +1,6 @@
 # Hiveron Web Application
 
-An industry-grade, full-stack application for **Hiveron**—a premium natural athletic energy gel brand. The application consists of a high-performance, responsive React frontend powered by **TanStack Start** and **Vite**, and a secure, light-weight database-connected REST API backend powered by **Express.js** and **Mongoose**.
+An industry-grade, full-stack application for **Hiveron**—a premium natural athletic energy gel brand. The application consists of a high-performance, responsive React frontend powered by **TanStack Start** and **Vite**, and secure, light-weight serverless API routes connected to MongoDB via **Mongoose**.
 
 ---
 
@@ -12,13 +12,12 @@ An industry-grade, full-stack application for **Hiveron**—a premium natural at
 4. [Project Structure](#project-structure)
 5. [Getting Started](#getting-started)
    - [Prerequisites](#prerequisites)
-   - [Backend Environment Setup](#backend-environment-setup)
+   - [Local Environment Setup](#local-environment-setup)
    - [Installation](#installation)
    - [Running the Application](#running-the-application)
 6. [API Specification](#api-specification)
    - [POST `/api/waitlist`](#post-apiwaitlist)
    - [POST `/api/contact`](#post-apicontact)
-   - [GET `/health`](#get-health)
 7. [Production Deployment](#production-deployment)
 8. [Code Quality & Linting](#code-quality--linting)
 
@@ -28,12 +27,9 @@ An industry-grade, full-stack application for **Hiveron**—a premium natural at
 
 ```mermaid
 graph TD
-    Client[Client Browser / Frontend: Port 8080] -->|HTTP POST Request| API[Express API Gateway / Backend: Port 3001]
+    Client[Client Browser / Frontend: Port 8080] -->|HTTP POST Request| ServerlessAPI[TanStack Serverless API: Port 8080]
     Client -->|Static Assets / SSR| ViteServer[Vite Dev Server / Nitro Engine]
-    API -->|CORS Protection Check| AllowedOrigins{Origin Allowed?}
-    AllowedOrigins -->|Yes| RouteHandler[Route Controllers]
-    AllowedOrigins -->|No| CORSBlock[403 CORS Blocked]
-    RouteHandler -->|Mongoose ODM| MongoDB[(MongoDB Atlas Cluster)]
+    ServerlessAPI -->|Mongoose ODM| MongoDB[(MongoDB Atlas Cluster)]
 ```
 
 ---
@@ -50,7 +46,7 @@ graph TD
 
 ## Technology Stack
 
-### Frontend
+### Frontend & Core
 
 - **Framework**: [TanStack Start](https://tanstack.com/start) (Full-stack React Framework)
 - **Routing**: [TanStack Router](https://tanstack.com/router) (Typesafe file-based routing)
@@ -60,11 +56,11 @@ graph TD
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Build Engine**: [Vite](https://vitejs.dev/)
 
-### Backend
+### Database & Serverless
 
-- **Server Platform**: Node.js & [Express.js](https://expressjs.com/)
 - **Database ODM**: [Mongoose](https://mongoosejs.com/) (MongoDB Integration)
-- **Utilities**: CORS protection, Dotenv environmental isolation
+- **Runtime Environment**: Node.js
+- **Server Platform**: Serverless (Nitro Engine / Vercel Serverless Functions)
 
 ---
 
