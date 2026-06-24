@@ -1,166 +1,263 @@
-# Transparent Nav React
 
-A modern web application built with **TanStack Start**, **React**, **TypeScript**, and **Tailwind CSS**. This project provides a fully-featured UI component library with routing capabilities.
 
-## Tech Stack
+# Hiveron Web Application
 
-- **Framework**: [TanStack Start](https://tanstack.com/start) - Full-stack React framework
-- **UI Library**: React with [shadcn/ui](https://ui.shadcn.com/) components
+An industry-grade, full-stack application for **Hiveron**—a premium natural athletic energy gel brand. The application consists of a high-performance, responsive React frontend powered by **TanStack Start** and **Vite**, and a secure, light-weight database-connected REST API backend powered by **Express.js** and **Mongoose**.
+
+---
+
+## Table of Contents
+
+1. [System Architecture](#system-architecture)
+2. [Key Features](#key-features)
+3. [Technology Stack](#technology-stack)
+4. [Project Structure](#project-structure)
+5. [Getting Started](#getting-started)
+   - [Prerequisites](#prerequisites)
+   - [Backend Environment Setup](#backend-environment-setup)
+   - [Installation](#installation)
+   - [Running the Application](#running-the-application)
+6. [API Specification](#api-specification)
+   - [POST `/api/waitlist`](#post-apiwaitlist)
+   - [POST `/api/contact`](#post-apicontact)
+   - [GET `/health`](#get-health)
+7. [Production Deployment](#production-deployment)
+8. [Code Quality & Linting](#code-quality--linting)
+
+---
+
+## System Architecture
+
+```mermaid
+graph TD
+    Client[Client Browser / Frontend: Port 8080] -->|HTTP POST Request| API[Express API Gateway / Backend: Port 3001]
+    Client -->|Static Assets / SSR| ViteServer[Vite Dev Server / Nitro Engine]
+    API -->|CORS Protection Check| AllowedOrigins{Origin Allowed?}
+    AllowedOrigins -->|Yes| RouteHandler[Route Controllers]
+    AllowedOrigins -->|No| CORSBlock[403 CORS Blocked]
+    RouteHandler -->|Mongoose ODM| MongoDB[(MongoDB Atlas Cluster)]
+```
+
+---
+
+## Key Features
+
+- **Responsive Landing Page**: Sleek, honey/amber themed glassmorphic UI showcasing product value, raw honey formula, and comparison metrics.
+- **Waitlist Form System**: Allows potential customers to register, performing automatic duplicates checks on email entries.
+- **Contact Desk**: A feedback/support system enabling direct messaging into the administration pipeline.
+- **Database Integration**: Dynamic schemas and persistence using MongoDB Atlas.
+- **SEO & Performance Optimized**: Utilizes semantic HTML, optimized image sizes, and fast server-side rendering (SSR) capabilities.
+
+---
+
+## Technology Stack
+
+### Frontend
+
+- **Framework**: [TanStack Start](https://tanstack.com/start) (Full-stack React Framework)
+- **Routing**: [TanStack Router](https://tanstack.com/router) (Typesafe file-based routing)
+- **State Management**: [TanStack Query](https://tanstack.com/query) (React Query)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Routing**: [TanStack Router](https://tanstack.com/router)
-- **State Management**: [TanStack Query](https://tanstack.com/query)
-- **Forms**: [React Hook Form](https://react-hook-form.com/) with Zod validation
-- **UI Components**: [Radix UI](https://www.radix-ui.com/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
-- **Package Manager**: [Bun](https://bun.sh/)
-- **Language**: TypeScript
-- **Linting**: ESLint + Prettier
+- **Animation**: [tw-animate-css](https://www.npmjs.com/package/tw-animate-css)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Build Engine**: [Vite](https://vitejs.dev/)
+
+### Backend
+
+- **Server Platform**: Node.js & [Express.js](https://expressjs.com/)
+- **Database ODM**: [Mongoose](https://mongoosejs.com/) (MongoDB Integration)
+- **Utilities**: CORS protection, Dotenv environmental isolation
+
+---
+
+## Project Structure
+
+```
+├── src/
+│   ├── assets/              # Optimized static image assets and icons
+│   ├── components/          # Reusable UI components
+│   │   └── ui/              # Radix UI + Tailwind design tokens
+│   ├── hooks/               # Custom React hooks (e.g. useInView)
+│   ├── lib/                 # Utility files & API clients
+│   ├── routes/              # TanStack Router folder-structure routes
+│   │   ├── __root.tsx       # Main page layout structure
+│   │   └── index.tsx        # Hiveron Home landing page layout
+│   ├── router.tsx           # Router configuration
+│   ├── server.ts            # Client-side SSR entry
+│   ├── start.ts             # Main bundle entry
+│   └── styles.css           # Global Tailwind & Custom UI styles
+├── backend/
+│   ├── src/
+│   │   └── server.js        # Main Express API entrypoint & routes
+│   ├── .env.example         # Template for environment configuration
+│   ├── package.json         # Backend node scripts & dependencies
+│   └── package-lock.json    # Backend locks
+├── package.json             # Root-level configuration & dev dependencies
+├── tsconfig.json            # Strict TypeScript configuration
+└── vite.config.ts           # Vite + TanStack compilation pipeline
+```
+
+---
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ or Bun installed
-- Git
+Ensure you have the following software installed:
+
+- **Node.js**: v18.0.0 or higher
+- **NPM** or **Bun** package manager
+- **MongoDB Atlas Account** (or a local MongoDB instance running)
+
+### Backend Environment Setup
+
+Create an active configuration file for the backend server:
+
+1. Copy the sample environment file in the `backend/` directory:
+   ```bash
+   cp backend/.env.example backend/.env
+   ```
+2. Open `backend/.env` and update the database URI and origin parameters:
+   ```env
+   PORT=3001
+   MONGODB_URI=mongodb+srv://<db_user>:<db_password>@<your_cluster_address>.mongodb.net/hiveron
+   FRONTEND_ORIGIN=http://localhost:8080
+   ```
+
+> [!WARNING]
+> Keep your `backend/.env` credentials secure. This file is excluded from repository commits by `.gitignore`.
 
 ### Installation
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd transparent-nav-react
-```
+Install packages for both the root (frontend) and backend workspaces:
 
-2. Install dependencies:
 ```bash
-bun install
-# or with npm/yarn
+# Install root & frontend dependencies
 npm install
-# yarn install
+
+# Install backend dependencies
+cd backend
+npm install
+cd ..
 ```
 
-### Development
+### Running the Application
 
-Start the development server:
+For development, run both servers simultaneously.
+
+#### 1. Start the Frontend Server (Vite)
+
+From the root workspace directory:
+
 ```bash
-bun run dev
-# or
 npm run dev
 ```
 
-The application will be available at `http://localhost:8080`
+The client dashboard will be available at **`http://localhost:8080`**.
 
-### Build
+#### 2. Start the Backend Server (Express + MongoDB)
 
-Build for production:
+From the `backend/` directory:
+
 ```bash
-bun run build
-# or
+npm run dev
+```
+
+The API server will launch at **`http://localhost:3001`**, verifying database connection logs upon successful start.
+
+---
+
+## API Specification
+
+All payloads are exchanged in **JSON** format.
+
+### POST `/api/waitlist`
+
+Registers a user onto the Hiveron Waitlist.
+
+- **Request Body**:
+  ```json
+  {
+    "name": "Alex Mercer",
+    "email": "alex.mercer@example.com",
+    "phone": "+15550199"
+  }
+  ```
+- **Responses**:
+  - **`201 Created`**:
+    ```json
+    {
+      "message": "You have been added to the waitlist.",
+      "id": "64b0b14c351f0402b9f3a9e3"
+    }
+    ```
+  - **`400 Bad Request`**: Missing required fields or malformed email.
+  - **`409 Conflict`**: Email address already registered.
+
+### POST `/api/contact`
+
+Submits a message through the customer service contact form.
+
+- **Request Body**:
+  ```json
+  {
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "subject": "Product Inquiry",
+    "message": "Are Hiveron gels vegan-friendly?"
+  }
+  ```
+- **Responses**:
+  - **`201 Created`**:
+    ```json
+    {
+      "message": "Your message has been sent.",
+      "id": "64b0b18f351f0402b9f3a9e5"
+    }
+    ```
+  - **`400 Bad Request`**: Missing field constraints or invalid email.
+
+### GET `/health`
+
+Returns the status of the server node.
+
+- **Response**:
+  - **`200 OK`**:
+    ```json
+    {
+      "ok": true
+    }
+    ```
+
+---
+
+## Production Deployment
+
+### Frontend Deployment (Vercel)
+
+The project is optimized for deployment on Vercel using the configured Nitro compiler preset:
+
+```bash
 npm run build
 ```
 
-Preview the production build:
-```bash
-bun run preview
-```
+Upload the build artifacts to your hosting provider using standard CI/CD pipelines.
 
-### Other Commands
+### Backend Deployment
 
-- **Lint**: `bun run lint` - Run ESLint
-- **Format**: `bun run format` - Format code with Prettier
+Ensure standard environment variables (`MONGODB_URI`, `PORT`, `FRONTEND_ORIGIN`) are mapped in the production server environment dashboard, pointing `FRONTEND_ORIGIN` to the production URL of your frontend.
 
-## Project Structure
+---
 
-```
-src/
-├── components/          # React components
-│   ├── ui/             # Reusable shadcn/ui components
-│   └── ...
-├── hooks/              # Custom React hooks
-├── lib/                # Utility functions and helpers
-├── routes/             # File-based routing (TanStack Router)
-│   ├── __root.tsx      # Root layout wrapping all pages
-│   ├── index.tsx       # Home page
-│   └── ...
-├── assets/             # Static assets
-├── styles.css          # Global styles
-├── router.tsx          # Router configuration
-├── server.ts           # Server configuration
-└── start.ts            # Application entry point
+## Code Quality & Linting
 
-backend/
-├── src/server.js       # Express API for waitlist and contact form submissions
-├── package.json        # Backend dependencies and scripts
-└── .env.example        # MongoDB Atlas and server environment variables
-```
+Keep the project formatted and compliant with rules before creating commits:
 
-## Routing
-
-This project uses **file-based routing** with TanStack Router. Every `.tsx` file in `src/routes/` is automatically a route.
-
-### Routing Conventions
-
-| File | URL |
-|------|-----|
-| `index.tsx` | `/` |
-| `about.tsx` | `/about` |
-| `users/index.tsx` | `/users` |
-| `users/$id.tsx` | `/users/:id` (dynamic) |
-| `posts/{-$category}.tsx` | `/posts/:category?` (optional) |
-| `files/$.tsx` | `/files/*` (splat/catch-all) |
-| `__root.tsx` | App shell (wraps all pages) |
-
-For more information, see [src/routes/README.md](src/routes/README.md).
-
-## Components
-
-The project includes a comprehensive set of UI components from shadcn/ui:
-
-- **Layout**: Sidebar, Card, Separator, ScrollArea
-- **Navigation**: NavigationMenu, Breadcrumb, Pagination, Menubar
-- **Buttons**: Button, ToggleGroup, Toggle
-- **Forms**: Input, Textarea, Select, Checkbox, RadioGroup, Switch, Label
-- **Data Display**: Table, Badge, Avatar, Progress, Skeleton
-- **Modals**: Dialog, Drawer, AlertDialog, Popover, HoverCard, ContextMenu, Sheet
-- **Other**: Accordion, Tabs, Collapsible, Carousel, Calendar, CommandPalette, Tooltip
-
-## Environment Variables
-
-Create a `.env.local` file in the root directory with any required environment variables:
-
-```env
-# Example
-VITE_API_URL=http://localhost:3000
-```
-
-For the backend, create `backend/.env` from `backend/.env.example` and set your MongoDB Atlas connection string:
-
-```env
-PORT=3001
-MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/hivron
-FRONTEND_ORIGIN=http://localhost:8080
-```
-
-## Scripts Details
-
-- `dev` - Start development server with hot module replacement
-- `build` - Create optimized production build
-- `build:dev` - Build for development mode
-- `preview` - Preview production build locally
-- `lint` - Check code quality with ESLint
-- `format` - Format code with Prettier
-
-## Contributing
-
-1. Create a feature branch: `git checkout -b feature/your-feature`
-2. Commit changes: `git commit -m 'Add your feature'`
-3. Push to the branch: `git push origin feature/your-feature`
-4. Open a Pull Request
-
-## License
-
-This project is private. All rights reserved.
-
-## Support
-
-For issues or questions, please open an issue in the repository.
+- **Lint checks**:
+  ```bash
+  npm run lint
+  ```
+- **Auto-formatting (Prettier)**:
+  ```bash
+  npm run format
+  ```
