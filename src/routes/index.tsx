@@ -17,6 +17,9 @@ import hiveronCompareImg from "@/assets/hiveron-compare.png";
 import artificialIcon from "@/assets/icons/artifical_icon.png";
 import energyIcon from "@/assets/icons/energy_icon.png";
 import stomachIcon from "@/assets/icons/stomach_icon.png";
+import rawHoneyIcon from "@/assets/icons/raw-honey-icon.png";
+import electrolyteIcon from "@/assets/icons/electrolytes-icon.png";
+import caffineIcon from "@/assets/icons/caffine-icon.png";
 import { postJson } from "@/lib/api";
 import clsx from "clsx";
 
@@ -35,9 +38,9 @@ const NAV = [
 function Logo() {
   return (
     <a href="#home" className="flex items-center gap-2.5">
-      <img src={logoImg} alt="Hiveron" className="h-9 w-9" width={36} height={36} />
+      <img src={logoImg} alt="Hiveron" className="h-12 w-24" width={48} height={48} />
       <span
-        className="text-xl font-medium tracking-wide text-honey"
+        className="text-2xl font-medium tracking-wide text-honey"
         style={{ fontFamily: "var(--font-sans)" }}
       >
         hiveron
@@ -47,11 +50,13 @@ function Logo() {
 }
 
 function Nav() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 bg-ink/60 border-b border-cream/5">
-      <div className="mx-auto flex max-w-7xl items-center justify-between">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-cream/5 bg-ink/60 px-6 py-5 md:px-12">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 md:items-center md:justify-between">
         <Logo />
-        <ul className="hidden md:flex items-center gap-6 lg:gap-8">
+        <ul className="hidden items-center gap-6 md:flex lg:gap-8">
           {NAV.map((n) => (
             <li key={n.label}>
               <a
@@ -63,6 +68,48 @@ function Nav() {
             </li>
           ))}
         </ul>
+        <button
+          type="button"
+          className="inline-flex shrink-0 items-center justify-center bg-transparent p-1 text-cream transition-colors hover:text-honey md:hidden"
+          aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          {mobileMenuOpen ? (
+            <X className="h-5 w-5" />
+          ) : (
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M4 7h16" />
+              <path d="M4 12h16" />
+              <path d="M4 17h16" />
+            </svg>
+          )}
+        </button>
+      </div>
+      <div
+        id="mobile-navigation"
+        className={clsx(
+          "mx-auto max-w-7xl overflow-hidden px-6 transition-[max-height,opacity] duration-200 ease-out md:hidden",
+          mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        )}
+      >
+        <div className="mt-4 rounded-2xl border border-cream/10 bg-ink/95 p-4 shadow-2xl backdrop-blur-md">
+          <ul className="grid gap-2">
+            {NAV.map((n) => (
+              <li key={n.label}>
+                <a
+                  href={n.href}
+                  className="flex items-center justify-between rounded-xl border border-transparent px-4 py-3 text-sm font-semibold tracking-[0.18em] text-cream/90 transition-colors hover:border-cream/10 hover:bg-cream/5 hover:text-honey"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span>{n.label}</span>
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </nav>
   );
@@ -105,7 +152,7 @@ function Hero() {
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 md:px-12 pt-28 pb-20">
         <div className="max-w-2xl">
           <h1 className="text-display text-cream text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black">
-            TASTE <br /> THE
+            TASTE <br /> THE {""}
             <span className="text-honey">WIN</span>
           </h1>
           <p className="mt-8 max-w-md text-base md:text-lg text-cream/70 leading-relaxed">
@@ -208,7 +255,7 @@ function Problem() {
           </div>
 
           {/* ── Three comparison cards ── */}
-          <div className="mt-6 grid grid-cols-3 border border-ink/10 divide-x divide-ink/10">
+          <div className="mt-6 grid grid-cols-1 border border-ink/10 divide-y divide-ink/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
             {/* Energy Drinks */}
             <div className="px-4 py-6 bg-[#f5f0e8]">
               <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-ink/20 mb-4 mx-auto">
@@ -493,13 +540,13 @@ function Formula() {
           </h2>
           <div className="mt-12 space-y-8">
             {[
-              { icon: <Hexagon className="h-6 w-6" />, t: "RAW HONEY", s: "Nature's original performance fuel. Fast energy from the purest source." },
-              { icon: <Droplet className="h-6 w-6" />, t: "ELECTROLYTES", s: "Hydration support when every kilometre matters." },
-              { icon: <Zap className="h-6 w-6" />, t: "50MG CAFFEINE", s: "Focused energy without overstimulation. Precision dose for endurance and clarity." },
+              { icon: rawHoneyIcon, t: "RAW HONEY", s: "Nature's original performance fuel. Fast energy from the purest source." },
+              { icon: electrolyteIcon, t: "ELECTROLYTES", s: "Hydration support when every kilometre matters." },
+              { icon: caffineIcon, t: "50MG CAFFEINE", s: "Focused energy without overstimulation. Precision dose for endurance and clarity." },
             ].map((f) => (
               <div key={f.t} className="flex gap-5">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border-2 border-honey text-honey">
-                  {f.icon}
+                <div className="flex h-20 w-20 shrink-0 items-center justify-center">
+                  <img src={f.icon} alt={f.t} className="h-24 w-24 object-contain" />
                 </div>
                 <div>
                   <h4 className="font-bold tracking-wider text-ink">{f.t}</h4>
@@ -737,8 +784,8 @@ function Contact() {
           </p>
           <div className="mt-8 h-px w-40 bg-honey" />
           <div className="mt-10 space-y-6">
-            <ContactRow icon={<Mail className="h-5 w-5" />} label="EMAIL" value="hello@hiveron.com" />
-            <ContactRow icon={<Phone className="h-5 w-5" />} label="PHONE" value="+91 98765 43210" />
+            <ContactRow icon={<Mail className="h-5 w-5" />} label="EMAIL" value="hello@gmail.com" />
+            <ContactRow icon={<Phone className="h-5 w-5" />} label="PHONE" value="+91 9530743515" />
             <ContactRow icon={<MapPin className="h-5 w-5" />} label="HEADQUARTERS" value="Bengaluru, Karnataka, India" />
           </div>
         </div>
@@ -831,7 +878,7 @@ function Footer() {
     <footer className="bg-ink text-cream/80 py-16">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 md:px-12 lg:grid-cols-5">
         <div className="lg:col-span-2 flex items-start gap-5 border-r border-cream/10 lg:pr-8">
-          <img src={logoImg} alt="Hiveron" className="h-12 w-12" width={48} height={48} />
+          <img src={logoImg} alt="Hiveron" className="h-14 w-24" width={56} height={56} />
           <p className="text-sm leading-relaxed text-cream/70 max-w-xs">
             Functional Honey Fuel for runners, cyclists and high performers.
           </p>
