@@ -12,7 +12,6 @@ import waitlistImg from "@/assets/hiveron-waitlist-img.png";
 import logoImg from "@/assets/logo/hiveron-logo.png";
 import productImg from "@/assets/hiveron-product-img.png";
 import energyDrinkImg from "@/assets/energy-drink.png";
-import otherGelsImg from "@/assets/other-gels.png";
 import hiveronCompareImg from "@/assets/hiveron-compare.png";
 import artificialIcon from "@/assets/icons/artifical_icon.png";
 import energyIcon from "@/assets/icons/energy_icon.png";
@@ -170,11 +169,12 @@ function Hero() {
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 md:px-12 pt-28 pb-20">
         <div className="max-w-2xl">
           <h1 className="text-display text-cream text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black anim-fade-left" style={{ animationDelay: "100ms" }}>
-            TASTE <br /> THE {""}
+            BUILT <br /> TO{""}
             <span className="text-honey">WIN</span>
           </h1>
           <p className="mt-8 max-w-md text-base md:text-lg text-cream/70 leading-relaxed anim-fade-up" style={{ animationDelay: "320ms" }}>
-            Functional Honey Fuel designed for runners, cyclists and high performers.
+            Functional honey energy gel for runners, cyclists and endurance athletes. Three purposeful ingredients.
+            Nothing unnecessary. 
           </p>
           <div className="mt-10 flex flex-wrap gap-4 anim-fade-up" style={{ animationDelay: "520ms" }}>
             <a
@@ -318,7 +318,7 @@ function Problem() {
               <h3 className="text-center text-[10px] font-black tracking-[0.2em] text-[#e07a20] mb-2 uppercase">Hiveron</h3>
               <div className="mx-auto w-8 h-0.5 bg-[#e07a20] mb-3" />
               <p className="text-center text-xs text-ink/60 leading-relaxed">
-                Sustained energy.<br />No crash.<br /><strong className="text-ink">Just performance.</strong>
+                Designed for <br />Sustained energy.<br />  
               </p>
             </div>
           </div>
@@ -367,10 +367,10 @@ function Product() {
           <div className="ml-auto w-full max-w-xs md:max-w-sm pr-2 md:pr-4">
             <SectionLabel>MEET HIVERON</SectionLabel>
             <h2 className="text-display mt-6 text-5xl md:text-6xl lg:text-7xl font-black">
-              FUNCTIONAL<br />HONEY FUEL<span className="text-honey">.</span>
+              BUILT FOR<br />EVERY ATHLETE<span className="text-honey">.</span>
             </h2>
             <p className="mt-8 text-lg text-cream/70">
-              Built using nature's most effective energy source.
+             Designed for athletes who want energy without relying on sugary drinks and overloaded formulas.
             </p>
             <div className="mt-10 h-px w-40 bg-honey" />
             <ul className="mt-8 space-y-4">
@@ -406,13 +406,31 @@ function Product() {
 
 /* ─────────────────────── COMPARE ─────────────────────── */
 const ROWS = [
-  ["Sustained Energy", "Quick spike, quick drop", "Somewhat sustained", "Steady energy that lasts"],
-  ["Natural Ingredients", "Artificial everything", "Some natural, some not", "100% natural. Nothing artificial."],
-  ["Electrolytes", "Minimal or none", "Some include", "Essential electrolytes for performance"],
-  ["Caffeine (Optimal Dose)", "Too much (80–160mg)", "Varies (20–100mg)", "Optimal 50mg caffeine"],
-  ["No Sugar Crash", "High sugar, hard crash", "Better carbs, still a crash", "No sugar. No crash."],
-  ["Easy on Stomach", "Often heavy & acidic", "Sometimes cause issues", "Light, smooth & gut-friendly"],
-  ["Clean & Transparent", "Hidden blends", "Not always clear", "Full transparency. Always."],
+  [
+    "Easy to carry",
+    "Bulky cans or bottles, hard to carry during exercise.",
+    "Slim, pocket-friendly squeeze packs for on-the-go fueling."
+  ],
+  [
+    "Workout focused",
+    "High carbonation and volume cause bloating and stomach cramps.",
+    "Non-carbonated, smooth gel consistency that is easy on the gut."
+  ],
+  [
+    "Natural ingredients",
+    "Synthetic chemicals, artificial sweeteners, and preservatives.",
+    "100% natural raw honey base."
+  ],
+  [
+    "Electrolytes included",
+    "Lacks proper sodium-to-potassium ratios for hydration.",
+    "Himalayan Pink Salt supplies optimal essential electrolytes."
+  ],
+  [
+    "Designed for endurance",
+    "High sugar spike followed by a severe energy crash.",
+    "Dual-source carbs (fructose & glucose) for sustained energy."
+  ]
 ];
 
 function Compare() {
@@ -422,41 +440,34 @@ function Compare() {
       <div ref={ref} className="mx-auto max-w-7xl px-6 md:px-12">
         <div className="grid gap-12 md:grid-cols-2 md:items-end">
           <div className={inView ? "anim-fade-left" : "anim-hidden"}>
-            <SectionLabel>NOT ALL FUEL</SectionLabel>
-            <h2 className="text-display mt-6 text-4xl sm:text-5xl md:text-6xl font-black text-ink">
-              NOT ALL FUEL IS CREATED EQUAL<span className="text-honey">.</span>
-            </h2>
+            <SectionLabel>WHY WE BUILT HIVERON</SectionLabel>
+             <h2 className="text-display mt-6 text-4xl sm:text-5xl md:text-6xl font-black text-ink">
+              A Better Way to Fuel Your Ambition<span className="text-honey">.</span>
+            </h2> 
           </div>
           <div
             className={`space-y-4 text-ink/80 text-lg ${inView ? "anim-fade-right" : "anim-hidden"}`}
             style={{ animationDelay: "160ms" }}
           >
-            <p>Most energy products give you a quick high and an even harder low.</p>
+            <p>Athletes deserve better than sugary energy drinks and overpriced imported gels.</p>
             <p>
-              Hiveron delivers clean, functional energy that performs{" "}
-              <strong className="text-ink">with you, not against you.</strong>
+            We created HIVERON to deliver simple, {" "}
+              <strong className="text-ink">effective fuel using ingredients people actually recognize.</strong>
             </p>
           </div>
         </div>
-
         <div className="mt-16 overflow-x-auto">
           <table className="w-full min-w-[800px] border-separate border-spacing-0">
             <thead>
               <tr className={`align-bottom ${inView ? "anim-fade-up" : "anim-hidden"}`} style={{ animationDelay: "200ms" }}>
-                <th className="bg-cream text-left p-5 text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">WHAT MATTERS</th>
-                <th className="bg-cream p-5 text-center text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">
+                <th className="bg-cream text-left p-5 text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom w-1/4">WHAT MATTERS</th>
+                <th className="bg-cream p-5 text-center text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom w-[37.5%]">
                   <div className="flex flex-col items-center gap-3">
                     <img src={energyDrinkImg} alt="Energy drink can" className="h-20 w-auto object-contain" />
                     <span>ENERGY DRINKS</span>
                   </div>
                 </th>
-                <th className="bg-cream p-5 text-center text-sm font-bold tracking-[0.15em] text-ink/60 align-bottom">
-                  <div className="flex flex-col items-center gap-3">
-                    <img src={otherGelsImg} alt="Other gels packet" className="h-20 w-auto object-contain" />
-                    <span>OTHER GELS</span>
-                  </div>
-                </th>
-                <th className="bg-ink p-5 text-center text-sm font-bold tracking-[0.15em] text-honey rounded-t-lg align-bottom">
+                <th className="bg-ink p-5 text-center text-sm font-bold tracking-[0.15em] text-honey rounded-t-lg align-bottom w-[37.5%]">
                   <div className="flex flex-col items-center gap-3">
                     <img src={hiveronCompareImg} alt="Hiveron honey fuel gel" className="h-24 w-auto object-contain drop-shadow-2xl" />
                     <span>HIVERON</span>
@@ -465,21 +476,24 @@ function Compare() {
               </tr>
             </thead>
             <tbody>
-              {ROWS.map(([label, a, b, c], i) => (
+              {ROWS.map(([label, energyDrinkText, hiveronText], i) => (
                 <tr
                   key={label}
                   className={`${i % 2 ? "bg-ink/[0.03]" : ""} ${inView ? "anim-fade-up" : "anim-hidden"}`}
                   style={{ animationDelay: `${280 + i * 55}ms` }}
                 >
-                  <td className="p-5 font-semibold text-ink">{label}</td>
-                  <td className="p-5 text-ink/70">
-                    <div className="flex items-center gap-3"><X className="h-5 w-5 text-ink/40 shrink-0" /> {a}</div>
+                  <td className="p-5 font-semibold text-ink align-middle border-b border-ink/5">{label}</td>
+                  <td className="p-5 text-ink/70 align-middle border-b border-ink/5">
+                    <div className="flex items-start gap-3">
+                      <X className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                      <span>{energyDrinkText}</span>
+                    </div>
                   </td>
-                  <td className="p-5 text-ink/70">
-                    <div className="flex items-center gap-3"><Minus className="h-5 w-5 text-ink/40 shrink-0" /> {b}</div>
-                  </td>
-                  <td className="bg-ink p-5 text-cream">
-                    <div className="flex items-center gap-3"><Check className="h-5 w-5 text-honey shrink-0" /><span className="font-semibold">{c}</span></div>
+                  <td className="bg-ink p-5 text-cream align-middle border-b border-cream/5">
+                    <div className="flex items-start gap-3">
+                      <Check className="h-5 w-5 text-honey shrink-0 mt-0.5" />
+                      <span className="font-semibold">{hiveronText}</span>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -566,9 +580,9 @@ function Formula() {
           </div>
           <div className="mt-12 space-y-8">
             {[
-              { icon: rawHoneyIcon, t: "RAW HONEY", s: "Nature's original performance fuel. Fast energy from the purest source." },
-              { icon: electrolyteIcon, t: "ELECTROLYTES", s: "Hydration support when every kilometre matters." },
-              { icon: caffineIcon, t: "50MG CAFFEINE", s: "Focused energy without overstimulation. Precision dose for endurance and clarity." },
+              { icon: rawHoneyIcon, t: "RAW HONEY", s: "Naturally occurring carbohydrates that help fuel \ntraining,racing, and long-duration efforts." },
+              { icon: electrolyteIcon, t: "ELECTROLYTES", s: "Provides sodium to support hydration and  help \n maintain performance during extended activity." },
+              { icon: caffineIcon, t: "50MG CAFFEINE", s: "A moderate caffeine dose designed to support \n alertness, focus, and endurance performance." },
             ].map((f, i) => (
               <div
                 key={f.t}
@@ -580,7 +594,7 @@ function Formula() {
                 </div>
                 <div>
                   <h4 className="font-bold tracking-wider text-ink">{f.t}</h4>
-                  <p className="mt-1 text-ink/70">{f.s}</p>
+                  <p className="mt-1 text-ink/70 whitespace-pre-line">{f.s}</p>
                 </div>
               </div>
             ))}
