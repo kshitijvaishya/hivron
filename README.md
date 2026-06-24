@@ -48,7 +48,7 @@ bun run dev
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173`
+The application will be available at `http://localhost:8080`
 
 ### Build
 
@@ -138,7 +138,7 @@ For the backend, create `backend/.env` from `backend/.env.example` and set your 
 ```env
 PORT=3001
 MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/hivron
-FRONTEND_ORIGIN=http://localhost:5173
+FRONTEND_ORIGIN=http://localhost:8080
 ```
 
 ## Scripts Details

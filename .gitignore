@@ -16,6 +16,11 @@ dist-ssr
 .nitro
 *.local
 
+
+#env file
+.env
+.env.*
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
@@ -33,3 +38,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+ 
