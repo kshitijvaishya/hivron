@@ -59,7 +59,7 @@ function Logo() {
         className="text-2xl font-medium tracking-wide text-honey"
         style={{ fontFamily: "var(--font-sans)" }}
       >
-        hiveron
+        Hiveron
       </span>
     </a>
   );
@@ -434,7 +434,7 @@ const ROWS = [
 function Compare() {
   const { ref, inView } = useInView();
   return (
-    <section id="why" className="bg-white text-ink py-24 md:py-32">
+    <section id="compare" className="bg-white text-ink py-24 md:py-32">
       <div ref={ref} className="mx-auto max-w-7xl px-6 md:px-12">
         <div className="grid gap-12 md:grid-cols-2 md:items-end">
           <div className={inView ? "anim-fade-left" : "anim-hidden"}>
@@ -555,7 +555,7 @@ function HexBadge({ children }: { children?: React.ReactNode }) {
 function Formula() {
   const { ref, inView } = useInView();
   return (
-    <section id="fuel" className="bg-white text-ink overflow-hidden">
+    <section id="formula" className="bg-white text-ink overflow-hidden">
       <div ref={ref} className="grid md:grid-cols-2 min-h-[700px]">
         <div
           className={`relative min-h-[400px] md:min-h-full ${inView ? "anim-fade-left" : "anim-hidden"}`}
@@ -1015,9 +1015,21 @@ function Footer() {
             Nothing unnecessary.
           </p>
         </div>
-        <FooterCol title="PRODUCT" items={["Overview", "Ingredients", "How It Works", "FAQ"]} />
-        <FooterCol title="COMPANY" items={["About Hiveron", "Careers", "Press", "Contact"]} />
-        <FooterCol title="SUPPORT" items={["Help Center", "Shipping", "Returns", "Terms & Privacy"]} />
+        <FooterCol
+          title="PRODUCT"
+          items={[
+            { label: "Overview", href: "#compare" },
+            { label: "Ingredients", href: "#formula" },
+            { label: "FAQ", href: "#faq" },
+          ]}
+        />
+        <FooterCol
+          title="COMPANY"
+          items={[
+            { label: "About Hiveron", href: "#product" },
+            { label: "Contact", href: "#contact" },
+          ]}
+        />
       </div>
       <div className="mx-auto mt-12 flex max-w-7xl flex-col items-center justify-between gap-6 border-t border-cream/10 px-6 md:px-12 pt-8 md:flex-row">
         <p className="text-xs text-cream/50">© {new Date().getFullYear()} Hiveron. All rights reserved.</p>
@@ -1039,14 +1051,21 @@ function Footer() {
   );
 }
 
-function FooterCol({ title, items }: { title: string; items: string[] }) {
+interface FooterItem {
+  label: string;
+  href: string;
+}
+
+function FooterCol({ title, items }: { title: string; items: FooterItem[] }) {
   return (
     <div>
       <h4 className="text-sm font-bold tracking-[0.2em] text-cream">{title}</h4>
       <ul className="mt-5 space-y-3">
-        {items.map((i) => (
-          <li key={i}>
-            <a href="#" className="text-sm text-cream/60 hover:text-honey transition-colors">{i}</a>
+        {items.map((item) => (
+          <li key={item.label}>
+            <a href={item.href} className="text-sm text-cream/60 hover:text-honey transition-colors">
+              {item.label}
+            </a>
           </li>
         ))}
       </ul>
